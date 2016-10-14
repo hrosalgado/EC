@@ -1,13 +1,8 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Main{
-	public static void readFiles(){
+	/*public static void readFiles(){
 		// Store data: author and content
 		List<String> authors = new ArrayList<String>();
 		List<String> contents = new ArrayList<String>();
@@ -86,9 +81,9 @@ public class Main{
 				}
 			}
 		}
-	}
+	}*/
 	
 	public static void main(String [] args){
-		readFiles();
+		HashMap<String, List<String>> data = Dataset.readFiles();
 	}
 }
