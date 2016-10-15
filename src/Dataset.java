@@ -1,3 +1,4 @@
+import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +17,8 @@ public class Dataset{
 		List<String> contents = new ArrayList<String>();
 		
 		// Data path
-		String path = "C:/Users/MSI/Workspace Java/HotelReview/Resources/Before/";
+		// String path = "C:/Users/MSI/Workspace Java/HotelReview/Resources/Before/";
+		String path = "C:/Users/MSI/Workspace Java/HotelReview/Test/";
 		
 		// Data folder
 		File folder = new File(path);
@@ -24,7 +26,7 @@ public class Dataset{
 		// Store all files of the folder
 		File [] files = folder.listFiles();
 		
-		for(int i = 0; i < 1; i++){
+		for(int i = 0; i < files.length; i++){
 			// File name
 			String name = files[i].getName();
 			
@@ -118,6 +120,24 @@ public class Dataset{
 		
 		for(String s : data){
 			toRet.add(s.toLowerCase());
+		}
+		
+		return toRet;
+	}
+	
+	// Take how many times each word appear
+	public static HashMap<String, Integer> occurrences(List<String> data){
+		HashMap<String, Integer> toRet = new HashMap<String, Integer>();
+		
+		for(String s : data){
+			String [] words = s.split(" ");
+			for(String word : words){
+				if(!toRet.containsKey(word)){
+					toRet.put(word, 1);
+				}else{
+					toRet.put(word, toRet.get(word) + 1);
+				}
+			}
 		}
 		
 		return toRet;

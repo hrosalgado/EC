@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main{
 	public static void main(String [] args){
@@ -17,6 +18,13 @@ public class Main{
 		
 		for(String s : contents){
 			System.out.println("Line: " + s);
+		}
+		
+		// Take word occurrences
+		HashMap<String, Integer> occurrences = Dataset.occurrences(contents);
+		
+		for(Map.Entry<String, Integer> entry : occurrences.entrySet()) {
+		    System.out.println(entry.getKey() + " = " + entry.getValue());
 		}
 	}
 }
