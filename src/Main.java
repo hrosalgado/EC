@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class Main{
@@ -84,6 +85,12 @@ public class Main{
 	}*/
 	
 	public static void main(String [] args){
+		// Get data from the dataset (author and content)
 		HashMap<String, List<String>> data = Dataset.readFiles();
+		
+		// Clean content (punctuation marks)
+		List<String> content = Dataset.stem(data.get("Contents"));
+		
+		
 	}
 }

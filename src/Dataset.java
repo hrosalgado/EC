@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Dataset{
+	// Get authors and contents from dataset
 	public static HashMap<String, List<String>> readFiles(){
 		// To store authors and content
 		List<String> authors = new ArrayList<String>();
@@ -22,7 +23,7 @@ public class Dataset{
 		// Store all files of the folder
 		File [] files = folder.listFiles();
 		
-		for(int i = 0; i < files.length; i++){
+		for(int i = 0; i < 1; i++){
 			// File name
 			String name = files[i].getName();
 			
@@ -34,7 +35,7 @@ public class Dataset{
 				
 				while((currentLine = reader.readLine()) != null){
 					if(!currentLine.isEmpty()){
-						// Take field between <>
+						// Take field (between <>)
 						int startField = currentLine.indexOf('<');
 						int endField = currentLine.indexOf('>');
 						
@@ -42,13 +43,11 @@ public class Dataset{
 							String field = currentLine.substring(startField + 1, endField);
 							String value = currentLine.substring(endField + 1);
 							
-							switch(field){
-								case "Author":
-									authors.add(value);
-									break;
-								case "Content":
-									contents.add(value);
-									break;
+							// Store author and content
+							if(field.equals("Author")){
+								authors.add(value);
+							}else if(field.equals("Content")){
+								contents.add(value);
 							}
 						}
 					}
@@ -64,13 +63,33 @@ public class Dataset{
 		
 		// To return authors and content both
 		HashMap<String, List<String>> toRet = new HashMap<String, List<String>>();
+		
 		toRet.put("Authors", authors);
 		toRet.put("Contents", contents);
 		
 		return toRet;
 	}
 	
-	public static String stem(String word){
-		return null;
+	// Delete special characters
+	public static List<String> stem(List<String> data){
+		List<String> toRet = new ArrayList<String>();
+		
+		for(String s : data){
+			String stemmed = s.replaceAll("[.|:|,|;|¡|!|¿|?|(|)|{|}|+|*|/|@|#|$|%|&|=]", "");
+			stemmed = stemmed.trim();
+			
+			toRet.add(stemmed);
+		}
+		
+		return toRet;
+	}
+	
+	// Delete stop words
+	public static List<String> stopWord(List<String> data){
+		List<String> toRet = new ArrayList<String>();
+		
+		
+		
+		return toRet;
 	}
 }
