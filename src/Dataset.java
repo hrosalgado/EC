@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Dataset{
 	// Get authors and contents from dataset
@@ -141,5 +143,40 @@ public class Dataset{
 		}
 		
 		return toRet;
+	}
+	
+	// Take the 50 words repeating more
+	public static HashMap<String, Integer> mostRepeated(HashMap<String, Integer> occurrences){
+		HashMap<String, Integer> mostRepeated = new HashMap<String, Integer>();
+		
+		for(int i = 0; i < 50; i++){
+			String key = Collections.max(occurrences.entrySet(), Map.Entry.comparingByValue()).getKey();
+			int value = Collections.max(occurrences.entrySet(), Map.Entry.comparingByValue()).getValue();
+			
+			mostRepeated.put(key, value);
+			occurrences.remove(key);
+		}
+		
+		return mostRepeated;
+	}
+	
+	// For each word, check if the word appears in each content and tick or not
+	// Recorrer más repetidas y comprobar para cada comentario de cada autor si aparece o no
+	public static List<List<String>> saveRepetitions(List<String> authors, List<String> contents, HashMap<String, Integer> mostRepeated){
+		List<List<String>> wordOccurrence = new ArrayList<List<String>>();
+		
+		for(Map.Entry<String, Integer> entry : mostRepeated.entrySet()){
+			List<String> col = new ArrayList<String>();
+		    for(String content : contents){
+		    	if(content.contains(entry.getKey())){
+		    		col.add("1");
+		    	}else{
+		    		col.add("0");
+		    	}
+		    }
+		    wordOccurrence.add(col);
+		}
+		
+		return wordOccurrence;
 	}
 }
