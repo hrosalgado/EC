@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +20,7 @@ public class Dataset{
 		List<String> contents = new ArrayList<String>();
 		
 		// Data path
-		// String path = "C:/Users/MSI/Workspace Java/HotelReview/Resources/Before/";
-		String path = "C:/Users/MSI/Workspace Java/HotelReview/Test/";
+		String path = "C:/Users/MSI/Workspace Java/HotelReview/Resources/Dataset/";
 		
 		// Data folder
 		File folder = new File(path);
@@ -80,8 +80,11 @@ public class Dataset{
 		List<String> toRet = new ArrayList<String>();
 		
 		for(String s : data){
-			String stemmed = s.replaceAll("[.|:|,|;|¡|!|¿|?|(|)|{|}|+|*|/|@|#|$|%|&|=]", "");
+			String stemmed = s.replaceAll("[.|:|,|;|¡|!|¿|?|(|)|{|}|+|*|/|@|#|$|%|&|=|0|1|2|3|4|5|6|7|8|9|-]", "");
 			stemmed = stemmed.trim();
+			stemmed = stemmed.replaceAll("\\t+", " ");
+			stemmed = stemmed.replaceAll("\\r\\n+", " ");
+			stemmed = stemmed.replaceAll("\\s+", " ");
 			
 			toRet.add(stemmed);
 		}
@@ -93,7 +96,7 @@ public class Dataset{
 	public static List<String> stopWord(List<String> data){
 		// Stop words
 		List<String> stopwords = new ArrayList<String>();
-		stopwords.addAll(Arrays.asList("a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone", "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any","anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes", "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom","but", "by", "call", "can", "cannot", "cant", "co", "con", "could", "couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", "either", "eleven","else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herself", "him", "himself", "his", "how", "however", "hundred", "ie", "if", "in", "inc", "indeed", "interest", "into", "is", "it", "its", "itself", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", "may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myself", "name", "namely", "neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", "once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own","part", "per", "perhaps", "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", "some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thickv", "thin", "third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves", "the"));
+		stopwords.addAll(Arrays.asList("a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone", "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any","anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes", "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom","but", "by", "call", "can", "cannot", "cant", "co", "con", "could", "couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", "either", "eleven","else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herself", "him", "himself", "his", "how", "however", "hundred", "i", "ie", "if", "in", "inc", "indeed", "interest", "into", "is", "it", "its", "itself", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", "may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myself", "name", "namely", "neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", "once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own","part", "per", "perhaps", "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", "some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thickv", "thin", "third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves", "the"));
 		
 		List<String> toRet = new ArrayList<String>();
 		
@@ -146,10 +149,10 @@ public class Dataset{
 	}
 	
 	// Take the 50 words repeating more
-	public static HashMap<String, Integer> mostRepeated(HashMap<String, Integer> occurrences){
+	public static HashMap<String, Integer> mostRepeated(HashMap<String, Integer> occurrences, int maxWords){
 		HashMap<String, Integer> mostRepeated = new HashMap<String, Integer>();
 		
-		for(int i = 0; i < 50; i++){
+		for(int i = 0; i < maxWords; i++){
 			String key = Collections.max(occurrences.entrySet(), Map.Entry.comparingByValue()).getKey();
 			int value = Collections.max(occurrences.entrySet(), Map.Entry.comparingByValue()).getValue();
 			
@@ -161,7 +164,6 @@ public class Dataset{
 	}
 	
 	// For each word, check if the word appears in each content and tick or not
-	// Recorrer más repetidas y comprobar para cada comentario de cada autor si aparece o no
 	public static List<List<String>> saveRepetitions(List<String> authors, List<String> contents, HashMap<String, Integer> mostRepeated){
 		List<List<String>> wordOccurrence = new ArrayList<List<String>>();
 		
@@ -178,5 +180,31 @@ public class Dataset{
 		}
 		
 		return wordOccurrence;
+	}
+	
+	// Create a arff file
+	public static void saveFile(List<List<String>> values, HashMap<String, Integer> words){
+		try{
+			PrintWriter writer = new PrintWriter("Resources/hotel.arff");
+			
+			writer.println("@relation hotel");
+			
+			for(Map.Entry<String, Integer> entry : words.entrySet()){
+				writer.println("@attribute " + entry.getKey() + " {0, 1}");
+			}
+			
+			writer.println("@data");
+			
+			for(List<String> l : values){
+				for(int i = 0; i < l.size() - 2; i++){
+					writer.print(l.get(i) + ",");
+				}
+				writer.println(l.get(l.size() - 1));
+			}
+			
+			writer.close();
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
 	}
 }

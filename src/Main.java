@@ -24,13 +24,13 @@ public class Main{
 		HashMap<String, Integer> occurrences = Dataset.occurrences(contents);
 		
 		// Take the words repeating more
-		HashMap<String, Integer> mostRepeated = Dataset.mostRepeated(occurrences);
+		HashMap<String, Integer> mostRepeated = Dataset.mostRepeated(occurrences, 50);
 		
 		// For each word, check if the word appears in each content and tick or not
 		List<List<String>> saved = Dataset.saveRepetitions(authors, data.get("Contents"), mostRepeated);
-		for(List<String> s : saved){
-			System.out.println(s);
-		}
+		
+		// Save file
+		Dataset.saveFile(saved, mostRepeated);
 		
 		// Take the last time
 		float time = (System.currentTimeMillis() - start) / 1000F;
