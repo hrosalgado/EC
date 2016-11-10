@@ -1,4 +1,3 @@
-import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -167,16 +166,16 @@ public class Dataset{
 	public static List<List<String>> saveRepetitions(List<String> authors, List<String> contents, HashMap<String, Integer> mostRepeated){
 		List<List<String>> wordOccurrence = new ArrayList<List<String>>();
 		
-		for(Map.Entry<String, Integer> entry : mostRepeated.entrySet()){
-			List<String> col = new ArrayList<String>();
-		    for(String content : contents){
-		    	if(content.contains(entry.getKey())){
-		    		col.add("1");
-		    	}else{
-		    		col.add("0");
-		    	}
-		    }
-		    wordOccurrence.add(col);
+		for(String content : contents){
+			List<String> row = new ArrayList<String>();
+			for(Map.Entry<String, Integer> entry : mostRepeated.entrySet()){
+				if(content.contains(entry.getKey())){
+					row.add("1");
+				}else{
+					row.add("0");
+				}
+			}
+			wordOccurrence.add(row);
 		}
 		
 		return wordOccurrence;
