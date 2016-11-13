@@ -195,7 +195,7 @@ public class Dataset{
 			writer.println("@data");
 			
 			for(List<String> l : values){
-				for(int i = 0; i < l.size() - 2; i++){
+				for(int i = 0; i < l.size() - 1; i++){
 					writer.print(l.get(i) + ",");
 				}
 				writer.println(l.get(l.size() - 1));
