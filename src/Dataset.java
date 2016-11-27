@@ -13,13 +13,13 @@ import java.util.Map;
 
 public class Dataset{
 	// Get authors and contents from dataset
-	public static HashMap<String, List<String>> readFiles(){
+	public static HashMap<String, List<String>> readFiles(int amount){
 		// To store authors and content
 		List<String> authors = new ArrayList<String>();
 		List<String> contents = new ArrayList<String>();
 		
 		// Data path
-		String path = "C:/Users/MSI/Workspace Java/HotelReview/Resources/Dataset/";
+		String path = "C:/Users/MSI/Workspace_Java/HotelReview/Resources/Dataset/";
 		
 		// Data folder
 		File folder = new File(path);
@@ -27,7 +27,7 @@ public class Dataset{
 		// Store all files of the folder
 		File [] files = folder.listFiles();
 		
-		for(int i = 0; i < files.length; i++){
+		for(int i = 0; i < amount; i++){
 			// File name
 			String name = files[i].getName();
 			
@@ -79,7 +79,7 @@ public class Dataset{
 		List<String> toRet = new ArrayList<String>();
 		
 		for(String s : data){
-			String stemmed = s.replaceAll("[.|:|,|;|¡|!|¿|?|(|)|{|}|+|*|/|@|#|$|%|&|=|0|1|2|3|4|5|6|7|8|9|-]", "");
+			String stemmed = s.replaceAll("[.|:|,|;|¡|!|¿|?|(|)|{|}|+|*|/|@|#|$|%|&|=|0|1|2|3|4|5|6|7|8|9|'|-]", "");
 			stemmed = stemmed.trim();
 			stemmed = stemmed.replaceAll("\\t+", " ");
 			stemmed = stemmed.replaceAll("\\r\\n+", " ");
@@ -147,7 +147,7 @@ public class Dataset{
 		return toRet;
 	}
 	
-	// Take the 50 words repeating more
+	// Take the 'x' words repeating more
 	public static HashMap<String, Integer> mostRepeated(HashMap<String, Integer> occurrences, int maxWords){
 		HashMap<String, Integer> mostRepeated = new HashMap<String, Integer>();
 		

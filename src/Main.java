@@ -1,7 +1,5 @@
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Main{
 	public static void main(String [] args){
@@ -9,7 +7,7 @@ public class Main{
 		long start = System.currentTimeMillis();
 		
 		// Get data from the dataset (author and content)
-		HashMap<String, List<String>> data = Dataset.readFiles();
+		HashMap<String, List<String>> data = Dataset.readFiles(100);
 		
 		List<String> authors = data.get("Authors");
 		List<String> contents = data.get("Contents");
@@ -24,7 +22,7 @@ public class Main{
 		HashMap<String, Integer> occurrences = Dataset.occurrences(contents);
 		
 		// Take the words repeating more
-		HashMap<String, Integer> mostRepeated = Dataset.mostRepeated(occurrences, 10);
+		HashMap<String, Integer> mostRepeated = Dataset.mostRepeated(occurrences, 50);
 		
 		// For each word, check if the word appears in each content and tick or not
 		List<List<String>> saved = Dataset.saveRepetitions(authors, data.get("Contents"), mostRepeated);
